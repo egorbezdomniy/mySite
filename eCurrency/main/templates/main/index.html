@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        body{
+            background-color:rgb(69, 73, 75)
+        }
+        #logo{
+            color: white;
+            margin-top: 5px;
+            font-family: "Space Mono", monospace;
+        }
+
+        #btn1{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        #btn2{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        #btn3{
+            margin-right: 10px;
+            margin-left: 20px;
+        }
+        .container-fluid div div{
+            background: rgb(40, 42, 43);
+            height: 200px;
+            text-align: center;
+            border-radius: 10px;
+
+        }
+
+        p{
+            color:rgb(255, 255, 255);
+            padding-top: 30px;
+            font-size: 25px;
+            font-family: "Space Mono", monospace;
+        }
+        h1{
+            color: white;
+            padding-top: 35px;
+            font-size: 60px;
+            font-family: "Space Mono", monospace;
+        }
+        #blob{
+            background-color: black;
+            background: linear-gradient(
+                to right,
+                aquamarine,
+                mediumpurple       
+            );
+            height: 500px;
+            aspect-ratio: 1;
+            position: absolute; 
+            left: 50%;
+            right: 50%;
+            translate: -50% -50%;
+            border-radius: 50%;
+            animation: rotate 9s infinite;
+            filter: blur(100px);
+            z-index: 1;
+
+        }
+        nav{
+            z-index: 100;
+            position: absolute;
+        }
+        @keyframes rotate {
+            from {
+                retate: 0deg;
+            } 
+            
+            50%{
+                scale: 1 1.5;
+            }
+
+            to {
+                rotate: 360deg;
+            }
+        }
+        #blur {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            z-index: 2;
+            backdrop-filter: blur(100px);
+        }
+        #currency-blocks{
+            z-index: 100;
+            position: absolute;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <input type="number" id="kef-inp" placeholder="Количество Валюты" min="0" class="form-control-sm">
+                    </li>
+                    <li class="nav-item" id="btn2">
+                        <button type="submit" onclick="checkKef()" class="btn btn-primary btn-sm">ОК</button>
+                    </li>
+                </ul>
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <select name="eCurrency" id="currency-sel" class="form-select form-select-sm"
+                                aria-label=".form-select-sm">
+                            <option value="RUB">Рубли</option>
+                            <option value="USD" selected="selected">Доллары</option>
+                            <option value="GBP">Фунты</option>
+                            <option value="EUR">Евро</option>
+                            <option value="UAH">Гривны</option>
+                            <option value="BYN">Белорусские рубли</option>
+                            <option value="KZT">Тенге</option>
+                            <option value="CNY">Юани</option>
+                            <option value="GEL">Лари</option>
+                        </select>
+                    </li>
+                    <li class="nav-item" id="btn1">
+                        <button type="submit" onclick="selectorUpdate()" class="btn btn-primary btn-sm">OK</button>
+                    </li>
+                </ul>
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <select name="eCurrency" id="currency-round" class="form-select form-select-sm"
+                                aria-label=".form-select-sm">
+                            <option value="0">Округление до целого</option>
+                            <option value="1">Округление до десятых</option>
+                            <option value="2" selected="selected">Округление до сотых</option>
+                            <option value="3">Округление до тысячных</option>
+                            
+                        </select>
+                    </li>
+                    <li class="nav-item" id="btn3">
+                        <button type="submit" onclick="roundUpdate()" class="btn btn-primary btn-sm">OK</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <h5 id="logo">Currency</h5>
+                    </li>
+    
+                </ul>
+            </div>
+        </div>
+    </nav>
+    sg
+    <div id='currency-blocks' class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md m-5"><h1 id="h1-RUB">Error</h1>
+    
+                <p id="RUB"></p>
+            </div>
+            <div class="col-md m-5"><h1 id="h1-USD">Error</h1><p id="USD"></p></div>
+            <div class="col-md m-5"><h1 id="h1-GBP">Error</h1><p id="GBP"></p></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md m-5"><h1 id="h1-EUR">Error</h1><p id="EUR"></p></div>
+            <div class="col-md m-5"><h1 id="h1-UAH">Error</h1><p id="UAH"></p></div>
+            <div class="col-md m-5"><h1 id="h1-BYN">Error</h1><p id="BYN"></p></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md m-5"><h1 id="h1-KZT">Error</h1><p id="KZT"></p></div>
+            <div class="col-md m-5"><h1 id="h1-CNY">Error</h1><p id="CNY"></p></div>
+            <div class="col-md m-5"><h1 id="h1-GEL">Error</h1><p id="GEL"></p></div>        
+        </div>
+        
+    </div>
+</div>
+
+<div id="blob"></div>
+<div id="blur"></div>
+<div style="height: 60px;"></div>
+
+
+    
+
+
+<script>
+
+        const blob = document.querySelector('#blob');
+        document.body.onpointermove = event => {
+            const { clientX, clientY } = event;
+
+            blob.animate({
+                left: `${clientX}px`,
+                top: `${clientY}px`
+            }, {duration: 3000, fill:"forwards"});
+
+        }       
+
+        let roundNum = 2
+
+
+        let currency = ''
+
+        let api_url_usd = 'https://open.er-api.com/v6/latest/'
+
+        selectorUpdate()
+
+
+
+        let factor = 1
+
+
+        function roundUpdate(){
+            let sel = document.querySelector('#currency-round')
+            let val = sel.options[sel.selectedIndex].value
+            console.log(val)
+            roundNum = Number(val)  
+            getISS()
+        }
+
+        function rounded(number){
+            return +number.toFixed(roundNum);
+        }
+
+
+        function selectorUpdate(){
+            let sel = document.querySelector('#currency-sel')
+            let val = sel.options[sel.selectedIndex].value
+            console.log(val)
+            api_url_usd = `https://open.er-api.com/v6/latest/${val}`
+            console.log(api_url_usd)
+            currency = val
+            getISS()
+        }
+
+
+        function checkKef(){
+
+            factor = document.querySelector('#kef-inp').value
+            console.log(factor)
+            if (factor >= 0){
+                getISS()
+            }
+
+        }
+
+
+
+        async function getISS(){
+            const response = await fetch(api_url_usd)
+            const data = await response.json()
+            document.querySelector('#RUB').innerHTML = `${factor} ${currency} = ${rounded(data.rates.RUB * factor)} RUB`
+            document.querySelector('#USD').innerHTML = `${factor} ${currency} = ${rounded(data.rates.USD * factor)} USD`
+            document.querySelector('#EUR').innerHTML = `${factor} ${currency} = ${rounded(data.rates.EUR * factor)} EUR`
+            document.querySelector('#UAH').innerHTML = `${factor} ${currency} = ${rounded(data.rates.UAH * factor)} UAH`
+            document.querySelector('#BYN').innerHTML = `${factor} ${currency} = ${rounded(data.rates.BYN * factor)} BYN`
+            document.querySelector('#KZT').innerHTML = `${factor} ${currency} = ${rounded(data.rates.KZT * factor)} KZT`
+            document.querySelector('#GBP').innerHTML = `${factor} ${currency} = ${rounded(data.rates.GBP * factor)} GBP`
+            document.querySelector('#CNY').innerHTML = `${factor} ${currency} = ${rounded(data.rates.CNY * factor)} CNY`
+            document.querySelector('#GEL').innerHTML = `${factor} ${currency} = ${rounded(data.rates.GEL * factor)} GEL`
+
+
+
+            document.querySelector('#h1-RUB').innerHTML = `${rounded(data.rates.RUB * factor)} ₽`
+            document.querySelector('#h1-USD').innerHTML = `${rounded(data.rates.USD * factor)} $`
+            document.querySelector('#h1-EUR').innerHTML = `${rounded(data.rates.EUR * factor)} €`
+            document.querySelector('#h1-UAH').innerHTML = `${rounded(data.rates.UAH * factor)} ₴`
+            document.querySelector('#h1-BYN').innerHTML = `${rounded(data.rates.BYN * factor)} Br`
+            document.querySelector('#h1-KZT').innerHTML = `${rounded(data.rates.KZT * factor)} ₸`
+            document.querySelector('#h1-GBP').innerHTML = `${rounded(data.rates.GBP * factor)} £`
+            document.querySelector('#h1-CNY').innerHTML = `${rounded(data.rates.CNY * factor)} ¥`
+            document.querySelector('#h1-GEL').innerHTML = `${rounded(data.rates.GEL * factor)} ₾`
+
+            console.log(data)
+        }
+
+
+
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+        crossorigin="anonymous"></script>
+</body>
+</html>
